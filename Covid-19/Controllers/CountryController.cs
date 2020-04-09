@@ -25,7 +25,7 @@ namespace Covid_19.Controllers
                 var client = new RestClient(url);
                 var request = new RestRequest(Method.GET);
                 request.AddHeader("x-rapidapi-host", "covid-19-coronavirus-statistics.p.rapidapi.com");
-                request.AddHeader("x-rapidapi-key", "5215123ee1mshb1fb25a785c6f6fp11c067jsn26092fbccab1");
+                request.AddHeader("x-rapidapi-key", "{key}");
                 IRestResponse response = client.Execute(request);
 
                 var totalObject = JObject.Parse(response.Content);

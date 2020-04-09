@@ -23,7 +23,7 @@ namespace Covid_19.Controllers
         public IActionResult Index()
         {
             var request = new RestRequest(Method.GET);
-            request.AddHeader("authorization", "apikey 1if4oyOemGV1Zw9RT6IKLT:2va8qdJ8ou1Pv9PDgX3FSu");
+            request.AddHeader("authorization", "apikey {key}");
             request.AddHeader("content-type", "application/json");
 
             var tclient = new RestClient("https://api.collectapi.com/corona/totalData");
