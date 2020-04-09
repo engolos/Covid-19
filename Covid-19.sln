@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Covid-19", "Covid-19\Covid-19.csproj", "{041BAA0C-3BAD-4C08-8B12-A4AA4020CE89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Covid-19", "Covid-19\Covid-19.csproj", "{041BAA0C-3BAD-4C08-8B12-A4AA4020CE89}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Covid19Data", "Covid19Data\Covid19Data.pyproj", "{306D22DB-9E56-49CC-A61F-F1BD920255EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,8 @@ Global
 		{041BAA0C-3BAD-4C08-8B12-A4AA4020CE89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{041BAA0C-3BAD-4C08-8B12-A4AA4020CE89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{041BAA0C-3BAD-4C08-8B12-A4AA4020CE89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{306D22DB-9E56-49CC-A61F-F1BD920255EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{306D22DB-9E56-49CC-A61F-F1BD920255EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
