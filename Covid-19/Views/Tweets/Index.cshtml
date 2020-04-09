@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<script>
+    function UserFunction() {
+        var User = document.getElementById("DUserList").value;
+        $.ajax({
+            type: "POST",
+            url: "/Tweets/GetUserTweets?user=" + User,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                OnSuccess(response);
+            },
+            failure: function (response) {
+                alert("failure");
+                console.log(response);
+            },
+            error: function (response) {
+                alert("error");
+                console.log(response);
+            }
+        });
+    }
+    function OnSuccess(response) {
+        var model = response;
+        if (model.result.length > 0) {
+            var row = $("#tblTweets tr:last-child").removeAttr("style").clone(true);
+            $("#tblTweets tr").not($("#tblTweets tr:first-child")).remove();
+            $.each(model.result, function () {
+                var item = this;
+                $("td", row).eq(0).html("<a href='" + item.link +"'><i class='fas fa-external-link-alt'></i></a>");
+                $("td", row).eq(1).html(item.tweet);
+                $("td", row).eq(2).html(item.retweets);
+                $("td", row).eq(3).html(item.favorites);
+                $("td", row).eq(4).html(item.date);
+                $("#tblTweets").append(row);
+                row = $("#tblTweets tr:last-child").clone(true);
+            });
+        }
+        else {
+            alert("Aradiginiz kriterde sonuc bulunamadi.");
+        }
+    };
+</script>
+
+@Html.DropDownList("DUserList", "Lütfen bir kullanıcı seçiniz...")
+
+<script>
+    $("#DUserList").addClass("btn btn-primary dropdown-toggle");
+    $("#DUserList").attr('onchange', 'UserFunction();');
+</script>
+
+
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="tblTweets" width="100%" cellspacing="0">
+            <tr>
+                    <th></th>
+                    <th> Tweet </th>
+                    <th><i class="fas fa-retweet" style="color:yellowgreen"></i> </th>
+                    <th> <i class="fas fa-heart" style="color:red"></i> </th>
+                    <th> Dates </th>
+                </tr>
+                <tr style="display:none">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+        </table>
+    </div>
+</div>

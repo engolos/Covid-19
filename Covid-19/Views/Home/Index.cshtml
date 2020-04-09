@@ -1,0 +1,170 @@
+﻿@model List<Covid_19.Models.CoronaGeneral>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card shadow mb-4">
+
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Toplam Pozitif Test</h6>
+
+            </div>
+
+            <div class="card-body">  <span style="color: #aaa;">@ViewBag.totalCases</span> </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card shadow mb-4">
+
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Toplam Ölen</h6>
+
+            </div>
+
+            <div class="card-body">  <span style="color: #f90a0a;">@ViewBag.totalDeaths</span> </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card shadow mb-4">
+
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Toplam İyileşen</h6>
+
+            </div>
+
+            <div class="card-body">  <span style="color: #8aca2b;">@ViewBag.totalRecovered</span> </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="wrapper">
+
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+
+            <!-- End of Topbar -->
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">Covid-19</h1>
+
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Covid-19 Ülke Vaka Durumları</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Ülke
+                                        </th>
+                                        <th>
+                                            Toplam Vaka
+                                        </th>
+                                        <th>
+                                            Yeni Vaka Sayısı
+                                        </th>
+                                        <th>
+                                            Toplam Ölen
+                                        </th>
+                                        <th>
+                                            Yeni Ölen
+                                        </th>
+                                        <th>
+                                            Toplam İyileşen
+                                        </th>
+                                        <th>
+                                            Aktif Vaka
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                    <tr>
+                                        <th>
+                                            Ülke
+                                        </th>
+                                        <th>
+                                            Toplam Vaka
+                                        </th>
+                                        <th>
+                                            Yeni Vaka Sayısı
+                                        </th>
+                                        <th>
+                                            Toplam Ölen
+                                        </th>
+                                        <th>
+                                            Yeni Ölen
+                                        </th>
+                                        <th>
+                                            Toplam İyileşen
+                                        </th>
+                                        <th>
+                                            Aktif Vaka
+                                        </th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <a href="http://localhost:5000/Country?name=@item.country">@item.country</a>
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.totalCases)
+                                            </td>
+                                            <td style="background-color: wheat;">
+                                                @Html.DisplayFor(modelItem => item.newCases)
+                                            </td>
+                                            <td style="color: red;">
+                                                @Html.DisplayFor(modelItem => item.totalDeaths)
+                                            </td>
+                                            <td style="color: aliceblue;background-color: orangered;">
+                                                @Html.DisplayFor(modelItem => item.newDeaths)
+                                            </td>
+                                            <td style="color: forestgreen;">
+                                                @Html.DisplayFor(modelItem => item.totalRecovered)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.activeCases)
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+
+<!-- Page level plugins -->
+<script src="~/js/jquery.dataTables.min.js"></script>
+<script src="~/js/dataTables.bootstrap4.min.js"></script>

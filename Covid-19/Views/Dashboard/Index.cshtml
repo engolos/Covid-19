@@ -1,0 +1,745 @@
+﻿@model Covid_19.Models.DashboardModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link href="~/css/jquery-jvectormap-2.0.5.css" rel="stylesheet" />
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="~/js/jquery-jvectormap-2.0.5.min.js"></script>
+<script src="~/js/jquery-jvectormap-world-mill-en.js"></script>
+
+<!-- Page level plugins -->
+<script src="~/js/Chart.min.js"></script>
+
+<div class="row row col-xl-12 col-md-6 mb-4" style="margin-left: 180px;">
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Toplam Vaka Sayısı</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"> @Model.info[0]</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-align-justify fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Toplam İyileşen</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.info[1]</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-danger shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Toplam Hayatını Kaybeden</div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">@Model.info[2]</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-skull-crossbones fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div class="row row col-xl-12 col-md-6 mb-4" style="margin-left: 180px;">
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Vaka Görülen Ülke Oranı</div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">(@ViewBag.TotalCountry-206) @Model.info[3]%</div>
+                            </div>
+                            <div class="col">
+                                <div class="progress progress-sm mr-2">
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: @Model.info[3]%" aria-valuenow="@Model.info[3]" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-map-marked-alt fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Vaka İyileşen Oranı</div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">@Model.info[4]%</div>
+                            </div>
+                            <div class="col">
+                                <div class="progress progress-sm mr-2">
+                                    <div class="progress-bar bg-gradient-success" role="progressbar" style="width: @Model.info[4]%" aria-valuenow="@Model.info[4]" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-divide fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-danger shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Vaka Ölen Oranı</div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">@Model.info[5]%</div>
+                            </div>
+                            <div class="col">
+                                <div class="progress progress-sm mr-2">
+                                    <div class="progress-bar bg-gradient-danger" role="progressbar" style="width: @Model.info[5]%" aria-valuenow="@Model.info[5]" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-divide fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<select id="DListMap" class="btn btn-primary dropdown-toggle" style="margin-left: 180px;" onchange="mapFunction()">
+    <option value="conmap">Vaka Haritası</option>
+    <option value="recmap">İyileşen Haritası</option>
+    <option value="detmap">Ölen Haritası</option>
+</select>
+
+<h1 id="conmap" style="margin-left: 180px;">Dünya Covid-19 Vaka Haritası </h1>
+<h1 id="recmap" style="margin-left: 180px; display: none;">Dünya Covid-19 İyileşen Haritası</h1>
+<h1 id="detmap" style="margin-left: 180px; display: none;">Dünya Covid-19 Ölen Haritası </h1>
+
+<div id="world-map" style="margin-left: 180px; width: 1200px; height: 600px"></div>
+<div id="worldRecovered-map" style="margin-left: 180px; width: 1200px; height: 600px"></div>
+<div id="worldDeath-map" style="margin-left: 180px; width: 1200px; height: 600px"></div>
+
+<div style="margin-left: 180px; width: 1200px; height: 600px">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Dünya Vaka-Ölen-İyileşen</h6>
+        </div>
+        <div class="card-body">
+            <div class="chart-area">
+                <canvas id="WorldChart"></canvas>
+            </div>
+            <hr>
+        </div>
+    </div>
+</div>
+
+<div style="margin-left: 180px; width: 1200px; height: 600px">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Türkiye Vaka-Ölen-İyileşen</h6>
+        </div>
+        <div class="card-body">
+            <div class="chart-area">
+                <canvas id="TurkeyChart"></canvas>
+            </div>
+            <hr>
+        </div>
+    </div>
+</div>
+
+<div style="margin-left: 180px; width: 1200px; height: 600px">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Amerika - Türkiye - İtalya Vaka Dağılımı</h6>
+        </div>
+        <div class="card-body">
+            <div class="chart-area">
+                <canvas id="myAreaChart"></canvas>
+            </div>
+            <hr>
+        </div>
+    </div>
+</div>
+<script>
+    function mapFunction() {
+        $("#recmap").hide();
+        $("#detmap").hide();
+        $("#conmap").hide();
+        $("#world-map").hide();
+        $("#worldRecovered-map").hide();
+        $("#worldDeath-map").hide();
+        var x = document.getElementById("DListMap").value;
+        if (x == "conmap")
+        {
+            $("#conmap").show();
+            $("#world-map").show();
+        }
+        else if (x == "recmap")
+        {
+            $("#recmap").show();
+            $("#worldRecovered-map").show();
+        }
+        else 
+        {
+            $("#detmap").show();
+            $("#worldDeath-map").show();
+        }
+    }
+    $(document).ready(function () {
+        latLngList = [];
+        var wConfirmedData = {};
+        var wDeathData = {};
+        var wRecoveredData = {};
+        @foreach (var item in Model.mapData)
+        {
+            @:Object.assign(wConfirmedData, {@item.countrycode: @item.confirmed});
+            @:Object.assign(wDeathData, {@item.countrycode: @item.deaths});
+            @:Object.assign(wRecoveredData, {@item.countrycode: @item.recovered});
+            @:latLng = [@item.latitude, @item.longitude];
+            @:latLngList.push({ latLng });
+        }
+        $('#world-map').vectorMap({
+            map: 'world_mill_en', scaleColors: ['#C8EEFF', '#0071A4'],
+            normalizeFunction: 'polynomial',
+            hoverOpacity: 0.7,
+            hoverColor: false,
+            markerStyle: {
+                initial: {
+                    fill: '#F8E23B',
+                    stroke: '#383f47'
+                }
+                },
+            backgroundColor: '#383f47',
+            //markers: latLngList,
+            series: {
+            regions: [{
+                values: wConfirmedData,
+                scale: ['#C8EEFF', '#0071A4'], 
+              normalizeFunction: 'polynomial'
+            }]
+          },
+            onRegionTipShow: function(e, el, code){
+            el.html(el.html() + ' (Vaka Sayısı - ' + wConfirmedData[code]+')');
+          }
+        });
+
+        $('#worldRecovered-map').vectorMap({
+            map: 'world_mill_en', scaleColors: ['#7CFC00', '#006400'],
+            normalizeFunction: 'polynomial',
+            hoverOpacity: 0.7,
+            hoverColor: false,
+            backgroundColor: '#383f47',
+            series: {
+                regions: [{
+                    values: wRecoveredData,
+                    scale: ['#7CFC00', '#006400'],
+                    normalizeFunction: 'polynomial'
+                }]
+            },
+            onRegionTipShow: function (e, el, code) {
+                el.html(el.html() + ' (İyileşen Sayısı - ' + wRecoveredData[code] + ')');
+            }
+        });
+        $("#worldRecovered-map").hide();
+        $('#worldDeath-map').vectorMap({
+            map: 'world_mill_en', scaleColors: ['#0000FF', '#191970'] , 
+            normalizeFunction: 'polynomial',
+            hoverOpacity: 0.7,
+            hoverColor: false,
+            backgroundColor: '#383f47',
+            series: {
+                regions: [{
+                    values: wDeathData,
+                    scale: ['#ff0d00', '#520400'],
+                    normalizeFunction: 'polynomial'
+                }]
+            },
+            onRegionTipShow: function (e, el, code) {
+                el.html(el.html() + ' (Ölen Sayısı - ' + wDeathData[code] + ')');
+            }
+        });
+        $("#worldDeath-map").hide();
+
+
+        Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+        Chart.defaults.global.defaultFontColor = '#858796';
+
+        function number_format(number, decimals, dec_point, thousands_sep) {
+            // *     example: number_format(1234.56, 2, ',', ' ');
+            // *     return: '1 234,56'
+            number = (number + '').replace(',', '').replace(' ', '');
+            var n = !isFinite(+number) ? 0 : +number,
+                prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+                sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+                dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+                s = '',
+                toFixedFix = function (n, prec) {
+                    var k = Math.pow(10, prec);
+                    return '' + Math.round(n * k) / k;
+                };
+            // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+            s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+            if (s[0].length > 3) {
+                s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+            }
+            if ((s[1] || '').length < prec) {
+                s[1] = s[1] || '';
+                s[1] += new Array(prec - s[1].length + 1).join('0');
+            }
+            return s.join(dec);
+        }
+
+        var DateList = [];
+
+        var ConfirmedList = [];
+        var DeathList = [];
+        var RecoveredList = [];
+
+        var WorldConfirmedList = [];
+        var WorldDeathList = [];
+        var WorldRecoveredList = [];
+
+        var ItalyConfirmedList = [];
+        var USConfirmedList = [];
+
+        @foreach (var item in Model.chartTotal[1].Dates)
+        {
+            @:DateList.push("@item");
+        }
+
+        @foreach (var item in Model.chartTotal[1].Confirmed)
+        {
+            @:ConfirmedList.push(@item);
+        }
+        @foreach (var item in Model.chartTotal[1].Deaths)
+        {
+            @:DeathList.push(@item);
+        }
+        @foreach (var item in Model.chartTotal[1].Recovered)
+        {
+            @:RecoveredList.push(@item);
+        }
+
+        @foreach (var item in Model.chartTotal[0].Confirmed)
+        {
+            @:WorldConfirmedList.push(@item);
+        }
+        @foreach (var item in Model.chartTotal[0].Deaths)
+        {
+            @:WorldDeathList.push(@item);
+        }
+        @foreach (var item in Model.chartTotal[0].Recovered)
+        {
+            @:WorldRecoveredList.push(@item);
+        }
+
+        @foreach (var item in Model.chartTotal[2].Confirmed)
+        {
+            @:ItalyConfirmedList.push(@item);
+        }
+        @foreach (var item in Model.chartTotal[3].Confirmed)
+        {
+            @:USConfirmedList.push(@item);
+        } 
+
+
+        var ctxworld = document.getElementById("WorldChart");
+        var ctx = document.getElementById("TurkeyChart");
+        var ctx2 = document.getElementById("myAreaChart");
+        var dates = DateList;
+        var WorldChart = new Chart(ctxworld, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: "Vaka Sayısı",
+                    lineTension: 0.3,
+                    backgroundColor: "rgba(78, 115, 223, 0.05)",
+                    borderColor: "rgba(78, 115, 223, 1)",
+                    pointRadius: 3,
+                    pointBackgroundColor: "rgba(78, 115, 223, 1)",
+                    pointBorderColor: "rgba(78, 115, 223, 1)",
+                    pointHoverRadius: 3,
+                    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+                    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                    pointHitRadius: 10,
+                    pointBorderWidth: 2,
+                    data: WorldConfirmedList,
+                }, {
+                    label: "Ölen Sayısı",
+                    lineTension: 0.3,
+                    backgroundColor: "rgba(128,0,0, 0.05)",
+                    borderColor: "rgba(78, 115, 223, 1)",
+                    pointRadius: 3,
+                    pointBackgroundColor: "rgba(128,0,0, 1)",
+                    pointBorderColor: "rgba(128,0,0, 1)",
+                    pointHoverRadius: 3,
+                    pointHoverBackgroundColor: "rgba(128,0,0, 1)",
+                    pointHoverBorderColor: "rgba(128,0,0, 1)",
+                    pointHitRadius: 10,
+                    pointBorderWidth: 2,
+                    data: WorldDeathList,
+                },
+                {
+                    label: "İyileşen Sayısı",
+                    lineTension: 0.3,
+                    backgroundColor: "rgba(34,139,34, 0.05)",
+                    borderColor: "rgba(34,139,34, 1)",
+                    pointRadius: 3,
+                    pointBackgroundColor: "rgba(34,139,34, 1)",
+                    pointBorderColor: "rgba(34,139,34, 1)",
+                    pointHoverRadius: 3,
+                    pointHoverBackgroundColor: "rgba(34,139,34, 1)",
+                    pointHoverBorderColor: "rgba(34,139,34, 1)",
+                    pointHitRadius: 10,
+                    pointBorderWidth: 2,
+                    data: WorldRecoveredList,
+                }],
+            },
+            options: {
+                maintainAspectRatio: false,
+                layout: {
+                    padding: {
+                        left: 10,
+                        right: 25,
+                        top: 25,
+                        bottom: 0
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        time: {
+                            unit: 'date'
+                        },
+                        gridLines: {
+                            display: false,
+                            drawBorder: false
+                        },
+                        ticks: {
+                            maxTicksLimit: 7
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            maxTicksLimit: 5,
+                            padding: 10,
+                            // Include a dollar sign in the ticks
+                            callback: function (value, index, values) {
+                                return number_format(value);
+                            }
+                        },
+                        gridLines: {
+                            color: "rgb(234, 236, 244)",
+                            zeroLineColor: "rgb(234, 236, 244)",
+                            drawBorder: false,
+                            borderDash: [2],
+                            zeroLineBorderDash: [2]
+                        }
+                    }],
+                },
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
+                    titleMarginBottom: 10,
+                    titleFontColor: '#6e707e',
+                    titleFontSize: 14,
+                    borderColor: '#dddfeb',
+                    borderWidth: 1,
+                    xPadding: 15,
+                    yPadding: 15,
+                    displayColors: false,
+                    intersect: false,
+                    mode: 'index',
+                    caretPadding: 10,
+                    callbacks: {
+                        label: function (tooltipItem, chart) {
+                            var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                            return datasetLabel + ': ' + number_format(tooltipItem.yLabel);
+                        }
+                    }
+                }
+            }
+        });
+
+        var myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: "Vaka Sayısı",
+                    lineTension: 0.3,
+                    backgroundColor: "rgba(78, 115, 223, 0.05)",
+                    borderColor: "rgba(78, 115, 223, 1)",
+                    pointRadius: 3,
+                    pointBackgroundColor: "rgba(78, 115, 223, 1)",
+                    pointBorderColor: "rgba(78, 115, 223, 1)",
+                    pointHoverRadius: 3,
+                    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+                    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                    pointHitRadius: 10,
+                    pointBorderWidth: 2,
+                    data: ConfirmedList,
+                }, {
+                        label: "Ölen Sayısı",
+                        lineTension: 0.3,
+                        backgroundColor: "rgba(128,0,0, 0.05)",
+                        borderColor: "rgba(78, 115, 223, 1)",
+                        pointRadius: 3,
+                        pointBackgroundColor: "rgba(128,0,0, 1)",
+                        pointBorderColor: "rgba(128,0,0, 1)",
+                        pointHoverRadius: 3,
+                        pointHoverBackgroundColor: "rgba(128,0,0, 1)",
+                        pointHoverBorderColor: "rgba(128,0,0, 1)",
+                        pointHitRadius: 10,
+                        pointBorderWidth: 2,
+                        data: DeathList,
+                    },
+                    {
+                        label: "İyileşen Sayısı",
+                        lineTension: 0.3,
+                        backgroundColor: "rgba(34,139,34, 0.05)",
+                        borderColor: "rgba(34,139,34, 1)",
+                        pointRadius: 3,
+                        pointBackgroundColor: "rgba(34,139,34, 1)",
+                        pointBorderColor: "rgba(34,139,34, 1)",
+                        pointHoverRadius: 3,
+                        pointHoverBackgroundColor: "rgba(34,139,34, 1)",
+                        pointHoverBorderColor: "rgba(34,139,34, 1)",
+                        pointHitRadius: 10,
+                        pointBorderWidth: 2,
+                        data: RecoveredList,
+                    }],
+            },
+            options: {
+                maintainAspectRatio: false,
+                layout: {
+                    padding: {
+                        left: 10,
+                        right: 25,
+                        top: 25,
+                        bottom: 0
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        time: {
+                            unit: 'date'
+                        },
+                        gridLines: {
+                            display: false,
+                            drawBorder: false
+                        },
+                        ticks: {
+                            maxTicksLimit: 7
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            maxTicksLimit: 5,
+                            padding: 10,
+                            // Include a dollar sign in the ticks
+                            callback: function (value, index, values) {
+                                return number_format(value);
+                            }
+                        },
+                        gridLines: {
+                            color: "rgb(234, 236, 244)",
+                            zeroLineColor: "rgb(234, 236, 244)",
+                            drawBorder: false,
+                            borderDash: [2],
+                            zeroLineBorderDash: [2]
+                        }
+                    }],
+                },
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
+                    titleMarginBottom: 10,
+                    titleFontColor: '#6e707e',
+                    titleFontSize: 14,
+                    borderColor: '#dddfeb',
+                    borderWidth: 1,
+                    xPadding: 15,
+                    yPadding: 15,
+                    displayColors: false,
+                    intersect: false,
+                    mode: 'index',
+                    caretPadding: 10,
+                    callbacks: {
+                        label: function (tooltipItem, chart) {
+                            var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                            return datasetLabel + ': ' + number_format(tooltipItem.yLabel);
+                        }
+                    }
+                }
+            }
+        });
+
+        var myLineChart2 = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: "Türkiye Vaka Sayısı",
+                    lineTension: 0.3,
+                    backgroundColor: "rgba(34,139,34, 0.05)",
+                    borderColor: "rgba(34,139,34, 1)",
+                    pointRadius: 3,
+                    pointBackgroundColor: "rgba(34,139,34, 1)",
+                    pointBorderColor: "rgba(34,139,34, 1)",
+                    pointHoverRadius: 3,
+                    pointHoverBackgroundColor: "rgba(34,139,34, 1)",
+                    pointHoverBorderColor: "rgba(34,139,34, 1)",
+                    pointHitRadius: 10,
+                    pointBorderWidth: 2,
+                    data: ConfirmedList,
+                }, {
+                    label: "İtalya Vaka Sayısı",
+                    lineTension: 0.3,
+                    backgroundColor: "rgba(78, 115, 223, 0.05)",
+                    borderColor: "rgba(78, 115, 223, 1)",
+                    pointRadius: 3,
+                    pointBackgroundColor: "rgba(78, 115, 223, 1)",
+                    pointBorderColor: "rgba(78, 115, 223, 1)",
+                    pointHoverRadius: 3,
+                    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+                    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                    pointHitRadius: 10,
+                    pointBorderWidth: 2,
+                    data: ItalyConfirmedList,
+                    }, {
+                        label: "Amerika Vaka Sayısı",
+                        lineTension: 0.3,
+                        backgroundColor: "rgba(128,0,0, 0.05)",
+                        borderColor: "rgba(128,0,0, 1)",
+                        pointRadius: 3,
+                        pointBackgroundColor: "rgba(128,0,0, 1)",
+                        pointBorderColor: "rgba(128,0,0, 1)",
+                        pointHoverRadius: 3,
+                        pointHoverBackgroundColor: "rgba(128,0,0, 1)",
+                        pointHoverBorderColor: "rgba(128,0,0, 1)",
+                        pointHitRadius: 10,
+                        pointBorderWidth: 2,
+                        data: USConfirmedList,
+                    }],
+            },
+            options: {
+                maintainAspectRatio: false,
+                layout: {
+                    padding: {
+                        left: 10,
+                        right: 25,
+                        top: 25,
+                        bottom: 0
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        time: {
+                            unit: 'date'
+                        },
+                        gridLines: {
+                            display: false,
+                            drawBorder: false
+                        },
+                        ticks: {
+                            maxTicksLimit: 7
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            maxTicksLimit: 5,
+                            padding: 10,
+                            // Include a dollar sign in the ticks
+                            callback: function (value, index, values) {
+                                return number_format(value);
+                            }
+                        },
+                        gridLines: {
+                            color: "rgb(234, 236, 244)",
+                            zeroLineColor: "rgb(234, 236, 244)",
+                            drawBorder: false,
+                            borderDash: [2],
+                            zeroLineBorderDash: [2]
+                        }
+                    }],
+                },
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
+                    titleMarginBottom: 10,
+                    titleFontColor: '#6e707e',
+                    titleFontSize: 14,
+                    borderColor: '#dddfeb',
+                    borderWidth: 1,
+                    xPadding: 15,
+                    yPadding: 15,
+                    displayColors: false,
+                    intersect: false,
+                    mode: 'index',
+                    caretPadding: 10,
+                    callbacks: {
+                        label: function (tooltipItem, chart) {
+                            var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                            return datasetLabel + ': ' + number_format(tooltipItem.yLabel);
+                        }
+                    }
+                }
+            }
+        });
+        });
+</script>
