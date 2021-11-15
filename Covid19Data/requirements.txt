@@ -12,7 +12,7 @@ lxml==4.5.0
 numpy==1.18.2
 openpyxl==3.0.3
 pandas==1.0.3
-pip==19.2.3
+pip==21.1
 pyodbc==4.0.30
 pyquery==1.4.1
 python-dateutil==2.8.1
